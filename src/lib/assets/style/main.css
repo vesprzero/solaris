@@ -1,0 +1,25 @@
+
+@font-face {
+	font-family: 'Mattegi';
+	src: url('../fonts/mattegi-165169/Mattegi-E4394.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+
+@font-face {
+	font-family: 'Pixfay';
+	src: url('../fonts/pixfay-165321/Pixfay-Yq60a.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Velique Sans';
+	src: url('../fonts/velique-sans-165181/VeliqueSans-j967j.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}

@@ -1,6 +1,7 @@
 <script>
 	import gsap from 'gsap';
 	import Bg from '$lib/utils/bg.svelte';
+	import Clock from '$lib/utils/clock.svelte';
 	import logo from '$lib/assets/logo.png';
 	import pencil from '$lib/assets/icons/pencil.png';
 	import close from '$lib/assets/icons/close.png';
@@ -11,15 +12,6 @@
 	let bgSelect = $state(false);
 	let bg = $state('waves');
 	let fullscreen = $state(false);
-	let now = $state(new Date());
-	const time = $derived(
-		now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-	);
-
-	$effect(() => {
-		const tick = setInterval(() => (now = new Date()), 1000);
-		return () => clearInterval(tick);
-	});
 	const bgOptions = [
 		{ key: 'waves', preview: smokePrev },
 		{ key: 'box', preview: boxPrev },
@@ -74,9 +66,14 @@
 <svelte:document onfullscreenchange={() => (fullscreen = !!document.fullscreenElement)} />
 
 <Bg shaderType={bg} />
+<Clock />
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="logo" onclick={toggleFullscreen} class:hidden={fullscreen}>
 	<img src={logo} alt="Logo" />
 </div>
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="edit" class:hidden={fullscreen}>
 	<div class="editButtonDiv" onclick={launchEditor}>
 		<img class="editButton" src={editLauncher} alt="Edit" />
@@ -91,11 +88,6 @@
 		</div>
 	{/if}
 </div>
-<div class="displayContainer">
-	<div class="clockDisplay">
-		<p class="clock">{time}</p>
-	</div>
-</div>
 
 <style>
 	:global(body) {
@@ -106,6 +98,8 @@
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		user-select: none; /* Standard syntax */
 		padding-left: 10px;
+		font-family: mattegi;
+		font-weight: 900;
 	}
 	.logo {
 		height: 60px;
@@ -150,9 +144,6 @@
 		width: 30px;
 		transition-duration: 0.3s;
 	}
-	.editButtonDiv:hover .editButton {
-		filter: invert(100%);
-	}
 	.editButtonDiv:active .editButton {
 		transform: scale(0.5);
 	}
@@ -196,33 +187,6 @@
 	}
 	.bgOption.active {
 		border-color: #ffffff;
-	}
-	.displayContainer {
-		position: absolute;
-		height: 100vh;
-		width: 100vw;
-		margin: 0;
-		top: 0;
-		left: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.clockDisplay {
-		height: 100px;
-		width: 250px;
-		background-color: rgba(255, 255, 255, 0.192);
-		border-radius: 8px;
-		backdrop-filter: blur(20px);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.clock {
-		margin: 0;
-		color: #ffffff;
-		font-size: 40px;
-		font-variant-numeric: tabular-nums;
 	}
 	@keyframes fadeIn {
 		from {
