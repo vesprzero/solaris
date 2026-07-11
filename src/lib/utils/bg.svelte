@@ -2,9 +2,12 @@
 	import { Warp, LiquidMetal } from '@devmischief/shaders-svelte';
 	let { shaderType } = $props();
 	let shaders = $derived(shaderType);
+	const presets = ['waves', 'box', 'meatball'];
+	// anything that isn't a known shader key is treated as an uploaded image
+	let customBG = $derived(!presets.includes(shaderType));
 </script>
 
-<div class="shaders">
+<div class="shaders" style:background-image={customBG ? `url("${shaders}")` : 'none'}>
 	{#if shaders == 'waves'}
 		<Warp
 			width={'100vw'}
@@ -24,8 +27,7 @@
 			speed={3}
 			fit="contain"
 		/>
-	{/if}
-	{#if shaders == 'box'}
+	{:else if shaders == 'box'}
 		<LiquidMetal
 			width={'100vw'}
 			height={'100vh'}
@@ -46,8 +48,7 @@
 			speed={0.3}
 			fit="contain"
 		/>
-	{/if}
-	{#if shaders == 'meatball'}
+	{:else if shaders == 'meatball'}
 		<LiquidMetal
 			width={'100vw'}
 			height={'100vh'}
@@ -79,5 +80,8 @@
 		width: 100vw;
 		height: 100vh;
 		z-index: -1;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
 	}
 </style>

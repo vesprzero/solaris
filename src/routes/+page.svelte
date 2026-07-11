@@ -1,4 +1,5 @@
 <script>
+	import '$lib/assets/style/main.css';
 	import gsap from 'gsap';
 	import Bg from '$lib/utils/bg.svelte';
 	import Clock from '$lib/utils/clock.svelte';
@@ -8,15 +9,29 @@
 	import boxPrev from '$lib/assets/previews/boxPreview.png';
 	import meatPrev from '$lib/assets/previews/meatballPreview.png';
 	import smokePrev from '$lib/assets/previews/smokePreview.png';
+	import uploadImg from '$lib/assets/icons/upload.png';
+	import { saveSetting, loadSetting } from '$lib/utils/localspace.js';
+	import { onMount } from 'svelte';
 	let editLauncher = $state(pencil);
 	let bgSelect = $state(false);
 	let bg = $state('waves');
 	let fullscreen = $state(false);
+	let loaded = $state(false);
+	const maxSize = 15 * 1024 * 1024;
+
 	const bgOptions = [
 		{ key: 'waves', preview: smokePrev },
 		{ key: 'box', preview: boxPrev },
 		{ key: 'meatball', preview: meatPrev }
 	];
+
+	onMount(async () => {
+		bg = await loadSetting('background', 'waves');
+		loaded = true;
+	});
+	$effect(() => {
+		if (loaded) saveSetting('background', bg);
+	});
 	function launchEditor() {
 		bgSelect = !bgSelect;
 		if (editLauncher == pencil) {
@@ -61,6 +76,31 @@
 			document.documentElement.requestFullscreen();
 		}
 	}
+	/**
+	 * @param {File} file
+	 * @returns {Promise<string>}
+	 */
+	function readFileAsDataURL(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(/** @type {string} */ (reader.result));
+			reader.onerror = () => reject(reader.error);
+			reader.readAsDataURL(file);
+		});
+	}
+
+	/** @param {Event} event */
+	async function handleUpload(event) {
+		const input = /** @type {HTMLInputElement} */ (event.target);
+		const file = input.files?.[0];
+		input.value = '';
+		if (!file) return;
+		if (file.size > maxSize) {
+			alert('That image is too large (max 15MB)');
+			return;
+		}
+		bg = await readFileAsDataURL(file);
+	}
 </script>
 
 <svelte:document onfullscreenchange={() => (fullscreen = !!document.fullscreenElement)} />
@@ -85,115 +125,13 @@
 					<img src={option.preview} alt={option.key} />
 				</button>
 			{/each}
+			<label class="bgOption">
+				<img src={uploadImg} alt="upload" />
+				<input type="file" accept="image/*" onchange={handleUpload} hidden />
+			</label>
 		</div>
 	{/if}
 </div>
 
 <style>
-	:global(body) {
-		margin: 0;
-		padding: 0;
-		-webkit-user-select: none; /* Safari */
-		-moz-user-select: none; /* Firefox */
-		-ms-user-select: none; /* Internet Explorer/Edge */
-		user-select: none; /* Standard syntax */
-		padding-left: 10px;
-		font-family: mattegi;
-		font-weight: 900;
-	}
-	.logo {
-		height: 60px;
-		width: 60px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		transition-duration: 0.2s;
-		margin: 10px;
-	}
-	.logo img {
-		height: 60px;
-		width: auto;
-		margin: 0px;
-		padding: 0px;
-	}
-	.logo:hover {
-		transform: rotate(120deg);
-	}
-	.edit {
-		height: 50px;
-		width: 50px;
-		position: fixed;
-		bottom: 10px;
-		right: 10px;
-		border-radius: 8px;
-		backdrop-filter: blur(0px);
-		z-index: 10;
-	}
-	.editButtonDiv {
-		height: 40px;
-		width: 40px;
-		position: fixed;
-		bottom: 10px;
-		right: 10px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	.editButtonDiv .editButton {
-		height: 30px;
-		width: 30px;
-		transition-duration: 0.3s;
-	}
-	.editButtonDiv:active .editButton {
-		transform: scale(0.5);
-	}
-	.hidden {
-		display: none;
-	}
-	.bgSelect {
-		height: 100%;
-		width: 100%;
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		padding: 0 20px;
-	}
-	.bgOption {
-		width: 200px;
-		height: 120px;
-		padding: 0;
-		border: 2px solid rgba(255, 255, 255, 0.3);
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.1);
-		overflow: hidden;
-		cursor: pointer;
-		transition:
-			border-color 0.2s,
-			transform 0.2s;
-		animation: fadeIn 0.3s ease 0.35s both;
-	}
-	.bgOption img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		display: block;
-	}
-	.bgOption:hover {
-		border-color: rgba(255, 255, 255, 0.6);
-		transform: scale(1.03);
-	}
-	.bgOption:active {
-		transform: scale(0.97);
-	}
-	.bgOption.active {
-		border-color: #ffffff;
-	}
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
 </style>

@@ -7,6 +7,7 @@
       "dependencies": {
         "@devmischief/shaders-svelte": "^0.0.9",
         "gsap": "^3.15.0",
+        "localspace": "^2.0.1",
       },
       "devDependencies": {
         "@sveltejs/adapter-auto": "^7.0.1",
@@ -159,7 +160,11 @@
 
     "lightningcss-win32-x64-msvc": ["lightningcss-win32-x64-msvc@1.32.0", "", { "os": "win32", "cpu": "x64" }, "sha512-Amq9B/SoZYdDi1kFrojnoqPLxYhQ4Wo5XiL8EVJrVsB8ARoC1PWW6VGtT0WKCemjy8aC+louJnjS7U18x3b06Q=="],
 
+    "localspace": ["localspace@2.0.1", "", { "dependencies": { "lz-string": "^1.5.0" } }, "sha512-+5RWkWFTn/pLPhdCtHeweyD9Ij3EvTeP43Cq3VXrMtizqkPVJ95UuBmrzVrN4dHP7tE6ZlhveftFiOkQiPhoLw=="],
+
     "locate-character": ["locate-character@3.0.0", "", {}, "sha512-SW13ws7BjaeJ6p7Q6CO2nchbYEc3X3J6WrmTTDto7yMPqVSZTUyY5Tjbid+Ab8gLnATtygYtiDIJGQRRn2ZOiA=="],
+
+    "lz-string": ["lz-string@1.5.0", "", { "bin": { "lz-string": "bin/bin.js" } }, "sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ=="],
 
     "magic-string": ["magic-string@0.30.21", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.5" } }, "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ=="],
 

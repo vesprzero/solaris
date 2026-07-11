@@ -26,7 +26,8 @@
 	},
 	"dependencies": {
 		"@devmischief/shaders-svelte": "^0.0.9",
-		"gsap": "^3.15.0"
+		"gsap": "^3.15.0",
+		"localspace": "^2.0.1"
 	},
 	"patchedDependencies": {
 		"@devmischief/shaders-svelte@0.0.9": "patches/@devmischief%2Fshaders-svelte@0.0.9.patch"
