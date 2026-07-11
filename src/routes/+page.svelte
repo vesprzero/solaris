@@ -3,7 +3,7 @@
 	import gsap from 'gsap';
 	import Bg from '$lib/utils/bg.svelte';
 	import Clock from '$lib/utils/clock.svelte';
-	import logo from '$lib/assets/logo.png';
+	import logo from '$lib/assets/logoWhite.png';
 	import pencil from '$lib/assets/icons/pencil.png';
 	import close from '$lib/assets/icons/close.png';
 	import boxPrev from '$lib/assets/previews/boxPreview.png';
@@ -126,7 +126,7 @@
 				</button>
 			{/each}
 			<label class="bgOption">
-				<img src={uploadImg} alt="upload" />
+				<img class="uploadImg" src={uploadImg} alt="upload" />
 				<input type="file" accept="image/*" onchange={handleUpload} hidden />
 			</label>
 		</div>

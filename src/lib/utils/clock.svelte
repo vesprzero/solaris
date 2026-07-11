@@ -49,7 +49,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 6px;
-		text-shadow: 2px 2px 14px rgba(0, 0, 0, 0.6);
+		text-shadow: 2px 2px 14px rgb(0, 0, 0);
 	}
 	.clock {
 		margin: 0;
@@ -67,5 +67,6 @@
 		font-size: 15px;
 		letter-spacing: 5px;
 		text-transform: uppercase;
+		text-shadow: 2px 2px 14px rgb(0, 0, 0);
 	}
 </style>

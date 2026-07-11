@@ -1,4 +1,4 @@
-:global(body) {
+body {
 	margin: 0;
 	padding: 0;
 	-webkit-user-select: none; /* Safari */
@@ -23,6 +23,7 @@
 	width: auto;
 	margin: 0px;
 	padding: 0px;
+	opacity: 0.5;
 }
 .logo:hover {
 	transform: rotate(120deg);
@@ -79,6 +80,9 @@
 		border-color 0.2s,
 		transform 0.2s;
 	animation: fadeIn 0.3s ease 0.35s both;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .bgOption img {
 	width: 100%;
@@ -103,4 +107,8 @@
 	to {
 		opacity: 1;
 	}
+}
+.uploadImg {
+	height: 80% !important;
+	width: 80% !important;
 }
