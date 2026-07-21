@@ -6,7 +6,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Solari</title>
+	<title>Solaris</title>
 </svelte:head>
 
 {@render children()}

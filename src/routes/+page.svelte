@@ -9,6 +9,7 @@
 	import boxPrev from '$lib/assets/previews/boxPreview.png';
 	import meatPrev from '$lib/assets/previews/meatballPreview.png';
 	import smokePrev from '$lib/assets/previews/smokePreview.png';
+	import coffeePrev from '$lib/assets/previews/coffeePrev.png';
 	import uploadImg from '$lib/assets/icons/upload.png';
 	import { saveSetting, loadSetting } from '$lib/utils/localspace.js';
 	import { onMount } from 'svelte';
@@ -22,7 +23,8 @@
 	const bgOptions = [
 		{ key: 'waves', preview: smokePrev },
 		{ key: 'box', preview: boxPrev },
-		{ key: 'meatball', preview: meatPrev }
+		{ key: 'meatball', preview: meatPrev },
+		{ key: 'coffee', preview: coffeePrev }
 	];
 
 	onMount(async () => {
